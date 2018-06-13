@@ -29,8 +29,8 @@ def create_cards():
 			z=0
 			col+=1
 		pl=x[n].split('-')[1].strip()
-		done.rect(40+z*100,40+col*100,100,100)
-		done.drawString(50+z*100, 100+col*100,pl)
+		done.rect(440+z*100,40+col*100,100,100)
+		done.drawString(450+z*100, 100+col*100,pl)
 		z+=1
 	todo.showPage()
 	done.showPage()
