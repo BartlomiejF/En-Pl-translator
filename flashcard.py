@@ -1,37 +1,56 @@
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.pagesizes import A4
 
 pdfmetrics.registerFont(TTFont('LiberationSerif','/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf'))
-todo=canvas.Canvas('english_flashcards.pdf')
-done=canvas.Canvas('polish_flashcards.pdf')
-todo.setFont('LiberationSerif',12)
-done.setFont('LiberationSerif',12)
+width,height=A4
 
-def create_cards():
+def create_cards(wid=100,hei=50,margin=40, fontsize=12):
+	
+	todo=canvas.Canvas('english_flashcards.pdf', pagesize=A4)
+	done=canvas.Canvas('polish_flashcards.pdf', pagesize=A4)
+	todo.setFont('LiberationSerif',fontsize)
+	done.setFont('LiberationSerif',fontsize)
+	
 	with open('word_list.txt','r') as f:
 		x=f.readlines()
+	
+	temp_width=margin
+	temp_height=margin
+	
+	for n in range(len(x)):
+		if (width-temp_width)>(wid+margin):
+			eng=x[n].split('-')[0].strip().lower()
+			todo.rect(temp_width,temp_height,wid,hei)
+			todo.drawString(temp_width+10, temp_height+(hei*2/5),eng)
+			temp_width+=wid
+		elif (height-temp_height)<(hei+margin):
+			todo.showPage()
+			temp_width=margin
+			temp_height=margin
+		else:
+			temp_height+=hei
+			temp_width=margin
 
-	z=0
-	col=0
+	temp_width=int(width)-margin
+	temp_height=margin
+
+
 	for n in range(len(x)):
-		if z==5:
-			z=0
-			col+=1
-		eng=x[n].split('-')[0].strip()
-		todo.rect(40+z*100,40+col*100,100,100)
-		todo.drawString(50+z*100, 100+col*100,eng)
-		z+=1
-	z=0
-	col=0
-	for n in range(len(x)):
-		if z==5:
-			z=0
-			col+=1
-		pl=x[n].split('-')[1].strip()
-		done.rect(440+z*100,40+col*100,100,100)
-		done.drawString(450+z*100, 100+col*100,pl)
-		z+=1
+		if (temp_width-wid)>margin:
+			pl=x[n].split('-')[1].strip().lower()
+			done.rect(temp_width-wid,temp_height,wid,hei)
+			done.drawString(temp_width-wid+10, temp_height+(hei*2/5),pl)
+			temp_width-=wid
+		elif (height-temp_height)<(hei+margin):
+			done.showPage()
+			temp_width=margin
+			temp_height=int(width)-margin
+		else:
+			temp_height+=hei
+			temp_width=int(width)-margin
+	
 	todo.showPage()
 	done.showPage()
 	todo.save()
