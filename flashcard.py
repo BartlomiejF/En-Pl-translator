@@ -27,6 +27,7 @@ def create_cards(wid=100,hei=50,margin=40, fontsize=12):
 			temp_width+=wid
 		elif (height-temp_height)<(hei+margin):
 			todo.showPage()
+todo.setFont('LiberationSerif',fontsize)
 			temp_width=margin
 			temp_height=margin
 		else:
@@ -45,6 +46,7 @@ def create_cards(wid=100,hei=50,margin=40, fontsize=12):
 			temp_width-=wid
 		elif (height-temp_height)<(hei+margin):
 			done.showPage()
+done.setFont('LiberationSerif',fontsize)
 			temp_height=margin
 			temp_width=int(width)-margin
 		else:
