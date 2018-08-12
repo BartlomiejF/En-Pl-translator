@@ -57,7 +57,7 @@ class LeftSide(Frame):
 		self.word.insert(0,self.res)
 
 	def saveit(self):
-		self.to_write=self.tex+'-'+self.res+'\n'
+		self.to_write=self.tex+'-'+self.word.get()+'\n'
 		with open('word_list.txt','a') as f:
 			f.write(self.to_write)
 			
@@ -70,10 +70,6 @@ class LeftSide(Frame):
 	def receive(self,setups):
 		self.width,self.height,self.margin,self.fontsize=setups
 		self.window.destroy()
-				
-	#~ def binding(self):
-		#~ self.to_trans.bind('<Return>', func=self.doit)
-		#~ self.to_trans.bind('<KP_Enter>', func=self.doit)
 
 root=Tk()
 root.geometry()
