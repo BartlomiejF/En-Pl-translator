@@ -1,5 +1,5 @@
 from tkinter import *
-import translator, flashcard
+import translator, flashcard, using_bs4
 
 class FlashcardSetup(Toplevel):
 	def __init__(self):
@@ -48,12 +48,12 @@ class LeftSide(Frame):
 		Button(self, text='create flashcards', command=self.cards).grid(column=2, row=2,sticky=E+W)
 		Button(self, text='flashcards options', command=self.opt).grid(column=2, row=3,sticky=E+W)
 		Button(self, text='Exit', command=root.destroy).grid(column=2, row=4,sticky=E+W)
-		#~ self.binding()
 				
 	def doit(self):
 		self.tex=self.to_trans.get()
 		self.word.delete(0, last=len(self.word.get()))
-		self.res=translator.trans(self.tex).lower()
+		#self.res=translator.trans(self.tex).lower() #uncomment this to use Microsoft Azure translator
+		self.res = using_bs4.translate(self.tex) #comment this to use Microsoft Azure translator
 		self.word.insert(0,self.res)
 
 	def saveit(self):
