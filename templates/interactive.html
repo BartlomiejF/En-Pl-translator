@@ -1,0 +1,85 @@
+ 
+<style>
+table{
+  table-layout: fixed;
+  width: 100%;
+}
+tr{
+  font-family: arial, sans-serif;
+  border: 2px solid black;
+  text-align: center;
+  padding: 8px;
+  width: 25%;
+  height: 10%;
+}
+button{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  width: 30%;
+}
+button:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+</style>
+
+<script>
+
+function MakeButton(ident) {
+  var tr = document.createElement('tr');
+  var btn = document.createElement('button');
+  btn.id = ident[0];
+  var textnode = document.createTextNode(ident[0]);
+  btn.appendChild(textnode);
+  btn.onclick = function() {
+    if (btn.innerHTML == ident[0]) {
+      btn.innerHTML = ident[1];
+    } else {
+      btn.innerHTML = ident[0];
+    }
+  };
+  tr.appendChild(btn)
+  document.getElementById('buttons').appendChild(tr);
+}
+
+</script>
+
+<body>
+<table id="buttons">
+    
+    {% for words in wordlist %}
+      <script>
+        MakeButton(["{{ words[0] }}", "{{ words[1] }}"])
+      </script>
+    {% endfor %}
+    
+</table>
+</body>
