@@ -5,3 +5,6 @@ To use the program one will need to create Microsoft Azure account and get one's
 
 # EDIT!
 Microsoft Azure Translator is no longer needed. Now the translation is acquired from diki.pl web dictionary.
+
+# EDIT2!
+New flashcards creation tool that generates 2 html files - the first is printer friendly flashcards and the second contains interactive flashcards.
