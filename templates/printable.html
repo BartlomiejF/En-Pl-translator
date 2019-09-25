@@ -1,0 +1,25 @@
+<style>
+table{
+  table-layout: fixed;
+  width: 100%;
+}
+td, tr {
+  font-family: arial, sans-serif;
+  border: 2px solid black;
+  text-align: center;
+  padding: 8px;
+  width: 25%;
+  height: 10%;
+}
+</style>
+
+<table>
+    
+    {% for words in wordlist %}
+    <tr>
+        <td>{{ words[0] }}</td>
+        <td>{{ words[1] }}</td>
+    </tr>
+    {% endfor %}
+    
+</table>
